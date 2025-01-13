@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTIREP - Home</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #1e3c72;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .hamburger-menu {
+            font-size: 1.5rem;
+            color: white;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        #menu {
+            display: none;
+            background: #fefefe;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 20px;
+            padding: 10px;
+        }
+
+        #menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #menu li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #menu li:last-child {
+            border-bottom: none;
+        }
+
+        #menu a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        #menu a:hover {
+            color: #f85f73;
+        }
+
+        .welcome-section, .about-us {
+            text-align: center;
+            margin: 20px;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-section {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .about-us {
+            background: #f5f7fa;
+        }
+
+        .about-us h2 {
+            color: #1e3c72;
+            font-size: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background: #34c38f;
+        }
+
+        .btn-success:hover {
+            background: #28a745;
+        }
+
+        .btn-primary {
+            background: #f85f73;
+        }
+
+        .btn-primary:hover {
+            background: #ff7f50;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Courses Table Styles */
+        .courses-table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+        }
+
+        .courses-table th, .courses-table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .courses-table th {
+            background-color: #1e3c72;
+            color: white;
+        }
+
+        .courses-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #f85f73;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: #ff7f50;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .welcome-section, .about-us {
+                padding: 20px;
+            }
+
+            .courses-table th, .courses-table td {
+                font-size: 14px;
+            }
+
+            .btn {
+                font-size: 1rem;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div>
+            <!-- Update the path to use Django's static file handling -->
+            <img src="C:\Users\MICHAEL'S PC\Downloads\logo.png" alt="VTIREP Logo" class="logo">
+        </div>
+        <h1 class="text-center">WELCOME TO THE OFFICIAL WEBSITE OF VTIREP</h1>
+        <div>
+            <button class="btn hamburger-menu" onclick="toggleMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- Hamburger Menu -->
+    <div id="menu">
+        <ul>
+
+        </ul>
+    </div>
+
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+        <h2>Welcome to VTIREP</h2>
+        <!-- Update the path to use Django's static file handling -->
+        <img src="C:\Users\MICHAEL'S PC\OneDrive\Documentos\IMG-20240220-WA0007(1).jpg" alt="Welcome Image">
+        <div class="btn-center">
+            <a href="https://livingvinerehabilitation.com/" class="btn btn-success">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Inspirational Courses Heading -->
+    <section>
+        <h2 class="text-center">ADMISSION IN PROGRESS - BE  PART OF THE FUTURE, ENROLL NOW!</h2>
+        <h3 class="text-center">Our Courses</h3>
+        <p class="text-center">Join a wide variety of courses designed to give you the best knowledge and skills to thrive in the job market.</p>
+    </section>
+
+    <!-- Courses Table -->
+    <section>
+        <table class="courses-table">
+            <thead>
+                <tr>
+                    <th>Course/English</th>
+                    <th>French</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Mental Health Therapy</td><td>Therapie de sante menale</td></tr>
+                <tr><td>Marriage/Family Therapy</td><td>Therapie conjugale et familiale</td></tr>
+                <tr><td>Childcare/Worker, Educator</td><td>Travailleur/Travailleuse en d'enfants</td></tr>
+                <tr><td>Substance Abuse</td><td>Abus de substances</td></tr>
+                <tr><td>Psychiatric Aide/Technician</td>Aide-soignante en psychiatrie<td></td></tr>
+                <tr><td>Clinical & Counseling Psychology</td><td>Clinique et Psychologie</td></tr>
+                <tr><td>Psychiatric Nursing</td><td>Soins infirmiers en Psychiatric</td></tr>
+                <tr><td>Gerontology</td><td>Geriatrie</td></tr>
+                <tr><td>Audio-visual Editing</td><td>Audiovisual</td></tr>
+                <tr><td>Webmaster</td><td>Webmestre</td></tr>
+                <tr><td>Office Automation Secretary</td><td>Secretary Ship</td></tr>
+                <tr><td>Bilingual Secretary Ship</td><td>Secretariat Bureautique Bilingue</td></tr>
+                <tr><td>Computer Maintenance</td><td>Maintenance Informatique</td></tr>
+                <tr><td>Computer Network Maintenance</td><td>Maintenance Des Réseaux Informatique</td></tr>
+                <tr><td>Kitchen - Bar - Restaurant</td><td>Cuisine - Bar - Restaurant</td></tr>
+                <tr><td>Fashion Design</td><td>Stylisme</td></tr>
+                <tr><td>Hotel Management</td><td>Gestation Hotelerie</td></tr>
+                <tr><td>Professional Hairdressing</td><td>Coiffure Professionnel</td></tr>
+                <tr><td>Esthetics And Cosmetics</td><td>Esthétique Cosmétique</td></tr>
+                <tr><td>Motor Vehicle Repair</td><td>Reparation Auto</td></tr>
+                <tr><td>Tiles Building</td><td>Carreaux Bâtiment</td></tr>
+                <tr><td>Building Electricity</td><td>Electricité Bâtiment</td></tr>
+                <tr><td>Building Painting</td><td>Peinture Bâtiment</td></tr>
+                <tr><td>Machinery</td><td>Maconnerie</td></tr>
+                <tr><td>Plumbing - Sanitation</td><td>Plomberie Installation Sanitaire</td></tr>
+                <tr><td>Welding</td><td>Soudure</td></tr>
+                <tr><td>Refrigerator And Air Condition</td><td>Froid Et Climatisation</td></tr>
+                <tr><td>Electronics</td><td>Electronique</td></tr>
+                <tr><td>Medical Secretary</td><td>Secrétariat Medical</td></tr>
+                <tr><td>Pharmacy Seller </td><td>Vendeur En Pharmacie </td></tr>
+                <tr><td>Medical Delegate</td><td>Délégue Medical </td></tr>
+                <!-- Add more courses as required -->
+            </tbody>
+        </table>
+      <div class="image-container" style="text-align: center; margin: 20px;">
+        <!-- Use your own image path here -->
+        <img src="C:\Users\MICHAEL'S PC\OneDrive\Documentos\IMG-20240216-WA0010.jpg" alt="Course Image" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    </div>
+        <div class="btn-center">
+            <a class="btn btn-primary">Book Appointment</a>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about-us">
+        <h2>About Us</h2>
+        <p>Vocational Training Institute for Substance Abuse and Mental Health Services of Ronald E. Presley (VTIREP)<br>
+        Vision: In Pursuit of professional Excellence, Love, Truth and Liberty of mind<br>
+        VTIREP: Is one of its kind and it is a place for excellence in the domain of mental wellness, healthy living, love and liberty of the mind in the acquisition of vocational/professional skills for greater possibilities and opportunities. We are the benchmark enforcers of the government’s initiative to promote Mental Health Care in Cameroon.<br><br>
+        VTIREP is graced with a seasoned specialist in the person of the CEO with full-scale practice and experience in Mental Health Care acquired from studies in the USA and after having worked with the SAMHSA Project under the USA government.<br><br>
+        Our curriculum is focused on evidence - based practices gathered from scientifically-based research and resources, and clinical protocols especially the TIMA and Boston psychiatric curriculum.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Contact us at Livingvinerehabilitationcenter@gmail.com | +237 677931232</p>
+        <a href="{% url 'login' %}" class="secondary-btn">Login</a>
+        <p>&copy; 2024 VTIREP | All Rights Reserved</p>
+        <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <p>DEVELOPED BY PINNACLE</p>
+    </footer>
+
+    <script>
+        // Toggle menu visibility on hamburger click
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+    </script>
+</body>
+</html>

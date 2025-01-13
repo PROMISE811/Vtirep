@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Resources - Admin Dashboard</title>
+   <style>
+       /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #003366;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+.resource-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.resource-form h2 {
+    font-size: 1.8rem;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.resource-form input,
+.resource-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.resource-form input:focus,
+.resource-form textarea:focus {
+    border-color: #ffcc00;
+}
+
+.resource-form button {
+    padding: 12px 30px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resource-form button:hover {
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+.resource-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resource-list h2 {
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.resource-item {
+    background-color: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 5px solid #003366;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.resource-item h3 {
+    font-size: 1.4rem;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.resource-item p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.resource-item a {
+    color: #003366;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #003366;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.resource-item a:hover {
+    background-color: #ffcc00;
+    color: #003366;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+   </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'manage_courses' %}">Manage Courses</a></li>
+                <li><a href="{% url 'manage_resources' %}" class="active">Manage Resources</a></li>
+                <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Manage Resources</h1>
+        <section class="resource-form">
+            <h2>Add New Resource</h2>
+            <form id="add-resource-form">
+                <input type="text" id="resource-title" placeholder="Resource Title" required>
+                <textarea id="resource-description" placeholder="Resource Description" required></textarea>
+                <button type="submit">Add Resource</button>
+            </form>
+        </section>
+
+        <section class="resource-list">
+            <h2>Uploaded Resources</h2>
+            <div id="resources">
+                <!-- Dynamically populated resources will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+
+    <!-- Link JS using Django's static template tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const resourceList = document.getElementById('resources');
+    const resourceForm = document.getElementById('add-resource-form');
+    const resourceTitleInput = document.getElementById('resource-title');
+    const resourceDescriptionInput = document.getElementById('resource-description');
+
+    // Sample resources (replace with real data or backend logic)
+    const resources = [
+        { title: 'Mathematics Lecture Notes', description: 'Notes on Linear Algebra and Calculus', url: '#' },
+        { title: 'Physics Lab Guide', description: 'Complete Guide for Physics Lab', url: '#' },
+        { title: 'Computer Science Fundamentals', description: 'Introduction to Computer Science', url: '#' },
+    ];
+
+    // Render initial resource list
+    function renderResources() {
+        resourceList.innerHTML = ''; // Clear previous list
+        resources.forEach((resource) => {
+            const resourceItem = document.createElement('div');
+            resourceItem.classList.add('resource-item');
+            resourceItem.innerHTML = `
+                <h3>${resource.title}</h3>
+                <p>${resource.description}</p>
+                <a href="${resource.url}" target="_blank">View Resource</a>
+            `;
+            resourceList.appendChild(resourceItem);
+        });
+    }
+
+    // Handle form submission
+    resourceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const title = resourceTitleInput.value.trim();
+        const description = resourceDescriptionInput.value.trim();
+
+        if (title && description) {
+            // Add new resource to the list (could be posted to the backend here)
+            resources.push({ title, description, url: '#' }); // Update with proper URL in real use
+            renderResources(); // Re-render the list with the new resource
+            resourceTitleInput.value = '';
+            resourceDescriptionInput.value = '';
+        } else {
+            alert('Please fill out both fields!');
+        }
+    });
+
+    renderResources(); // Initial render of resources
+});
+
+    </script>
+</body>
+</html>

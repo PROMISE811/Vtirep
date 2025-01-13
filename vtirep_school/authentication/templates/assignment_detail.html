@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Detail</title>
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and main font styling */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Main content area */
+main {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+main h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+#assignment-info {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+form input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+form button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="student_dashboard.html">Dashboard</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Assignment Details</h1>
+        <div id="assignment-info">
+            <!-- Dynamically populated assignment details -->
+        </div>
+
+        <form action="/submit-assignment" method="POST" enctype="multipart/form-data">
+            <label for="assignment_file">Upload Assignment</label>
+            <input type="file" name="assignment_file" id="assignment_file" required>
+            <button type="submit">Submit Assignment</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    // Sample data to dynamically populate the assignment information
+    const assignmentData = {
+        title: "Family Therapy Assignment 1",
+        description: "Please complete this assignment and upload your work. The due date is March 15, 2025.",
+        dueDate: "March 15, 2025",
+    };
+
+    // Dynamically populate the assignment info section
+    const assignmentInfoDiv = document.getElementById("assignment-info");
+    assignmentInfoDiv.innerHTML = `
+        <h2>${assignmentData.title}</h2>
+        <p><strong>Description:</strong> ${assignmentData.description}</p>
+        <p><strong>Due Date:</strong> ${assignmentData.dueDate}</p>
+    `;
+});
+
+    </script>
+</body>
+</html>

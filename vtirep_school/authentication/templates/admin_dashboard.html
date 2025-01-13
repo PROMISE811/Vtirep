@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - VTIREP School</title>
+    <style>
+            /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header Styles: Sticky top navigation */
+        header {
+            background-color: #003366;
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 0;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        /* Active and hover states for navigation */
+        header nav ul li a:hover,
+        header nav ul li a.active {
+            color: #ff7f50;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard container styling */
+        .dashboard-content {
+            background: #fff;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #003366;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Stats Section: Admin overview cards */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #fafafa;
+            padding: 1.5rem;
+            width: 30%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card h3 {
+            font-size: 1.5rem;
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+
+        .stat-card p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Admin action links */
+        ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        ul li {
+            margin-bottom: 1rem;
+        }
+
+        ul li a {
+            display: block;
+            background-color: #ff7f50;
+            padding: 1rem;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        ul li a:hover {
+            background-color: #e66f3a;
+        }
+
+        /* Uploaded Resources Section */
+        #uploaded-resources {
+            margin-top: 3rem;
+        }
+
+        .resource-item {
+            background-color: #fafafa;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .resource-item h3 {
+            color: #003366;
+            margin-bottom: 1rem;
+        }
+
+        .resource-item p {
+            color: #666;
+        }
+
+        .resource-item a {
+            color: #ff7f50;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .resource-item a:hover {
+            color: #e66f3a;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .stat-card {
+                width: 80%;
+                margin-bottom: 1.5rem;
+            }
+
+            ul li a {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Simulate resources data (this should come from the backend in a real-world app)
+            let resources = [
+                { title: "Resource 1", file: "resource1.pdf", type: "pdf" },
+                { title: "Resource 2", file: "resource2.mp4", type: "video" }
+            ];
+
+            const uploadedResourcesContainer = document.getElementById('uploaded-resources');
+
+            // Function to render uploaded resources dynamically
+            function renderResources() {
+                uploadedResourcesContainer.innerHTML = ''; // Clear the list before rendering
+                resources.forEach(resource => {
+                    const resourceDiv = document.createElement('div');
+                    resourceDiv.classList.add('resource-item');
+                    resourceDiv.innerHTML = `
+                        <h3>${resource.title}</h3>
+                        <p>Type: ${resource.type}</p>
+                        <a href="/media/${resource.file}" target="_blank">View Resource</a>
+                    `;
+                    uploadedResourcesContainer.appendChild(resourceDiv);
+                });
+            }
+
+            // Render resources initially
+            renderResources();
+
+            const uploadForm = document.getElementById('upload-form');
+
+            // Handle file upload
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', function (e) {
+                    e.preventDefault(); // Prevent form from submitting normally
+
+                    const formData = new FormData(uploadForm);
+                    const title = formData.get('resource_title');
+                    const file = formData.get('resource_file');
+
+                    // Simulate adding a new resource
+                    const newResource = {
+                        title: title,
+                        file: file.name,
+                        type: file.type.includes('video') ? 'video' : 'pdf'
+                    };
+
+                    // Simulate saving the file (in a real app, this would involve an API call)
+                    setTimeout(() => {
+                        resources.push(newResource); // Add the new resource
+                        renderResources(); // Re-render the resource list
+                    }, 1000);
+
+                    // Reset the form
+                    uploadForm.reset();
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin_dashboard' %}" class="active">Dashboard</a></li>
+                <li><a href="{% url 'manage_courses' %}">Manage Courses</a></li>
+                <li><a href="{% url 'manage_resources' %}">Manage Resources</a></li>
+                <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Admin Dashboard</h1>
+        <div class="dashboard-content">
+            <h2>Overview</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <h3>Courses</h3>
+                    <p>{{ courses_count }} courses</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Users</h3>
+                    <p>{{ users_count }} users</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Resources</h3>
+                    <p>{{ resources_count }} resources</p>
+                </div>
+            </div>
+
+            <h2>Actions</h2>
+            <ul>
+                <li><a href="{% url 'upload_resource' %}">Upload Resource</a></li>
+                <li><a href="{% url 'add_course' %}">Add New Course</a></li>
+                <li><a href="{% url 'add_user' %}">Add New User</a></li>
+            </ul>
+
+            <h2>Manage Resources</h2>
+            <div id="uploaded-resources">
+                <!-- Dynamically populated list of uploaded resources will appear here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+</body>
+</html>

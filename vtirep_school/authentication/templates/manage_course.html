@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Courses - Admin Dashboard</title>
+    <style>
+        /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    padding: 20px;
+}
+
+header {
+    background-color: #003366;
+    padding: 15px 0;
+    color: #fff;
+    width: 100%;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+header nav ul li a:hover, header nav ul li a.active {
+    color: #ffcc00;
+}
+
+main {
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.course-form, .course-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #003366;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #ffcc00;
+}
+
+.course-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-item h3 {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'manage_courses' %}" class="active">Manage Courses</a></li>
+                <li><a href="{% url 'manage_resources' %}">Manage Resources</a></li>
+                <li><a href="{% url 'manage_users' %}">Manage Users</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Manage Courses</h1>
+        <section class="course-form">
+            <h2>Add New Course</h2>
+            <form id="add-course-form">
+                <input type="text" id="course-name" placeholder="Course Name" required>
+                <input type="text" id="course-description" placeholder="Course Description" required>
+                <button type="submit">Add Course</button>
+            </form>
+        </section>
+
+        <section class="course-list">
+            <h2>Course List</h2>
+            <div id="courses">
+                <!-- Dynamically populated courses will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+
+    <!-- Link JS using Django's static template tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const courseForm = document.getElementById('add-course-form');
+    const courseNameInput = document.getElementById('course-name');
+    const courseDescriptionInput = document.getElementById('course-description');
+    const coursesContainer = document.getElementById('courses');
+
+    // Sample courses to simulate data fetching
+    let courses = [
+        { name: 'Mathematics 101', description: 'Introduction to Mathematics' },
+        { name: 'Science 201', description: 'Basic Principles of Science' },
+        { name: 'History 101', description: 'World History Overview' }
+    ];
+
+    // Function to render the courses dynamically
+    function renderCourses() {
+        coursesContainer.innerHTML = '';  // Clear previous content
+        courses.forEach(course => {
+            const courseItem = document.createElement('div');
+            courseItem.classList.add('course-item');
+            courseItem.innerHTML = `
+                <h3>${course.name}</h3>
+                <p>${course.description}</p>
+            `;
+            coursesContainer.appendChild(courseItem);
+        });
+    }
+
+    // Handle form submission to add a new course
+    courseForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const courseName = courseNameInput.value.trim();
+        const courseDescription = courseDescriptionInput.value.trim();
+
+        if (courseName && courseDescription) {
+            // Add new course to the array
+            courses.push({ name: courseName, description: courseDescription });
+
+            // Reset the form
+            courseNameInput.value = '';
+            courseDescriptionInput.value = '';
+
+            // Re-render courses
+            renderCourses();
+        }
+    });
+
+    // Initial render of courses
+    renderCourses();
+});
+
+    </script>
+</body>
+</html>

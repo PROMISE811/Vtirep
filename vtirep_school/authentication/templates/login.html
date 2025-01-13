@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - VTIREP</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #00b4db, #0083b0);
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .form-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border: 2px solid #00b4db;
+        }
+
+        .form-actions {
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            background-color: #00b4db;
+            color: #fff;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0083b0;
+        }
+
+        form p {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        form a {
+            color: #00b4db;
+            text-decoration: none;
+        }
+
+        form a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .form-box {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-box">
+            <h2>Login</h2>
+            <form action="#" method="POST" id="loginForm">
+                <!-- CSRF token explicitly styled -->
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" style="display: none;">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Login</button>
+                    <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Basic form validation using JavaScript
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Check if email or password is empty
+            if (!email || !password) {
+                alert("Please fill in all fields.");
+                event.preventDefault(); // Prevent form submission
+            } else if (!validateEmail(email)) {
+                alert("Please enter a valid email.");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+
+        // Simple email validation
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    if (!email || !password) {
+        alert("Please fill in all fields.");
+        event.preventDefault();
+    } else if (!validateEmail(email)) {
+        alert("Please enter a valid email address.");
+        event.preventDefault();
+    }
+});
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+
+        }
+    </script>
+</body>
+</html>

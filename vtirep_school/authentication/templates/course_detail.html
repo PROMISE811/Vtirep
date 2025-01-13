@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <style>
+        /* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Navigation Styles */
+header {
+    background-color: #4CAF50;
+    padding: 15px;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Main Content Styles */
+main {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* Course Info Section */
+#course-info {
+    margin-bottom: 40px;
+}
+
+#course-info h2 {
+    font-size: 32px;
+    color: #4CAF50;
+}
+
+#course-info p {
+    font-size: 18px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* Assignments Section */
+#assignments {
+    margin-top: 40px;
+}
+
+#assignments h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.assignment-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.assignment-card h3 {
+    font-size: 24px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.assignment-card p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 20px;
+    }
+
+    header nav ul li {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="student%20dashboard.html">Dashboard</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Course Details</h1>
+        <div id="course-info">
+            <!-- Dynamically populated course details -->
+        </div>
+
+        <section id="assignments">
+            <h2>Assignments</h2>
+            <div id="assignment-list">
+                <!-- Dynamically populated list of assignments -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    // Simulate fetching course data from an API or backend
+    const courseData = {
+        name: "Family Therapy",
+        description: "This course covers the theories and practices of family therapy, focusing on therapeutic approaches and techniques.",
+        instructor: "Dr. John Doe",
+        schedule: "Mondays and Wednesdays, 10:00 AM - 12:00 PM"
+    };
+
+    // Populate course info dynamically
+    const courseInfoDiv = document.getElementById('course-info');
+    courseInfoDiv.innerHTML = `
+        <h2>${courseData.name}</h2>
+        <p><strong>Description:</strong> ${courseData.description}</p>
+        <p><strong>Instructor:</strong> ${courseData.instructor}</p>
+        <p><strong>Schedule:</strong> ${courseData.schedule}</p>
+    `;
+
+    // Simulate fetching assignments data
+    const assignments = [
+        { title: "Assignment 1", description: "Write a 1000-word essay on family dynamics in therapy."},
+        { title: "Assignment 2", description: "Create a case study based on a family therapy session."},
+        { title: "Assignment 3", description: "Submit a reflection paper on the course material." }
+    ];
+
+    // Populate assignments dynamically
+    const assignmentListDiv = document.getElementById('assignment-list');
+    assignments.forEach(assignment => {
+        const assignmentCard = document.createElement('div');
+        assignmentCard.classList.add('assignment-card');
+        assignmentCard.innerHTML = `
+            <h3 class="assignment-title">${assignment.title}</h3>
+            <p class="assignment-desc">${assignment.description}</p>
+        `;
+        assignmentListDiv.appendChild(assignmentCard);
+    });
+});
+
+    </script>
+</body>
+</html>

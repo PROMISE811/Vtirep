@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        /* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    padding: 20px;
+}
+
+header {
+    background-color: #0044cc;
+    padding: 10px 0;
+    text-align: center;
+    color: white;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+header nav ul li {
+    display: inline-block;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: #0033aa;
+}
+
+main {
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #0044cc;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+section h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.course-item,
+.assignment-item {
+    background-color: #f1f5f9;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.course-item a,
+.assignment-item a {
+    color: #0044cc;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.course-item a:hover,
+.assignment-item a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Logout Page */
+.logout-page {
+    text-align: center;
+    padding: 50px;
+}
+
+.logout-page h1 {
+    color: #0044cc;
+    font-size: 2rem;
+}
+
+.logout-page p a {
+    color: #0044cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout-page p a:hover {
+    text-decoration: underline;
+}
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Example dynamic data
+            const courses = [
+                { id: 1, name: "Mathematics 101" },
+                { id: 2, name: "Science 201" },
+                { id: 3, name: "History 101" }
+            ];
+            const assignments = [
+                { id: 1, title: "Math Assignment 1", dueDate: "2025-01-10" },
+                { id: 2, title: "Science Assignment 1", dueDate: "2025-01-15" },
+            ];
+
+            // Populating the student dashboard dynamically
+            const courseList = document.getElementById("course-list");
+            const assignmentList = document.getElementById("assignment-list");
+
+            // Populate courses dynamically
+            courses.forEach(course => {
+                const courseItem = document.createElement("div");
+                courseItem.classList.add("course-item");
+                courseItem.innerHTML = `
+                    <a href="/course/${course.id}">${course.name}</a>
+                `;
+                courseList.appendChild(courseItem);
+            });
+
+            // Populate assignments dynamically
+            assignments.forEach(assignment => {
+                const assignmentItem = document.createElement("div");
+                assignmentItem.classList.add("assignment-item");
+                assignmentItem.innerHTML = `
+                    <a href="/assignment/${assignment.id}">${assignment.title}</a>
+                    <span>Due: ${assignment.dueDate}</span>
+                `;
+                assignmentList.appendChild(assignmentItem);
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'student_dashboard' %}" class="active">Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome, {{ user.username }}</h1>
+        <section id="courses">
+            <h2>Your Courses</h2>
+            <div id="course-list">
+                <!-- Dynamically populated course data -->
+                {% for course in courses %}
+                    <div class="course-item">
+                        <a href="{% url 'course_detail' course.id %}">{{ course.name }}</a>
+                    </div>
+                {% empty %}
+                    <p>No courses available.</p>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section id="assignments">
+            <h2>Your Assignments</h2>
+            <div id="assignment-list">
+                <!-- Dynamically populated list of assignments -->
+                {% for assignment in assignments %}
+                    <div class="assignment-item">
+                        <a href="{% url 'assignment_detail' assignment.id %}">{{ assignment.title }}</a>
+                        <span>Due: {{ assignment.due_date }}</span>
+                    </div>
+                {% empty %}
+                    <p>No assignments available.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+</body>
+</html>

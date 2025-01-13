@@ -1,0 +1,311 @@
+<!-- upload_resource.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resource - Admin Dashboard</title>
+   <style>
+       /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+main {
+    max-width: 1100px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #003366;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+.form-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    font-size: 1.8rem;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    border-color: #ffcc00;
+}
+
+.form-container button {
+    padding: 12px 30px;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #ffcc00;
+    color: #003366;
+}
+
+.users-list {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.users-list h2 {
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.user-item {
+    background-color: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 5px solid #003366;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-item h3 {
+    font-size: 1.4rem;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.user-item p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.user-item a {
+    color: #003366;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #003366;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.user-item a:hover {
+    background-color: #ffcc00;
+    color: #003366;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    background-color: #003366;
+    color: white;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+   </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/admin/courses/">Manage Courses</a></li>
+                <li><a href="/admin/resources/" class="active">Manage Resources</a></li>
+                <li><a href="/admin/users/">Manage Users</a></li>
+                <li><a href="/admin/">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Upload Resource</h1>
+
+        <section class="form-container">
+            <h2>Add New Resource</h2>
+            <form id="add-resource-form">
+                <input type="text" id="resource-title" placeholder="Resource Title" required>
+                <textarea id="resource-description" placeholder="Description" required></textarea>
+                <button type="submit">Upload Resource</button>
+            </form>
+        </section>
+
+        <section class="users-list" id="resources">
+            <!-- Resource items will be dynamically inserted here -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const userList = document.getElementById('users');
+    const resourceList = document.getElementById('resources');
+    const userForm = document.getElementById('add-user-form');
+    const resourceForm = document.getElementById('add-resource-form');
+    const userNameInput = document.getElementById('user-name');
+    const userRoleInput = document.getElementById('user-role');
+    const resourceTitleInput = document.getElementById('resource-title');
+    const resourceDescriptionInput = document.getElementById('resource-description');
+
+    // Sample Users (replace with real data or backend logic)
+    const users = [
+        { name: 'John Doe', role: 'Admin', email: 'johndoe@example.com' },
+        { name: 'Jane Smith', role: 'Teacher', email: 'janesmith@example.com' },
+    ];
+
+    // Sample Resources (replace with real data or backend logic)
+    const resources = [
+        { title: 'Mathematics Lecture Notes', description: 'Notes on Linear Algebra and Calculus', url: '#' },
+        { title: 'Physics Lab Guide', description: 'Complete Guide for Physics Lab', url: '#' },
+    ];
+
+    // Render users list
+    function renderUsers() {
+        userList.innerHTML = ''; // Clear previous list
+        users.forEach((user) => {
+            const userItem = document.createElement('div');
+            userItem.classList.add('user-item');
+            userItem.innerHTML = `
+                <h3>${user.name} (${user.role})</h3>
+                <p>Email: ${user.email}</p>
+                <a href="mailto:${user.email}">Contact</a>
+            `;
+            userList.appendChild(userItem);
+        });
+    }
+
+    // Render resources list
+    function renderResources() {
+        resourceList.innerHTML = ''; // Clear previous list
+        resources.forEach((resource) => {
+            const resourceItem = document.createElement('div');
+            resourceItem.classList.add('resource-item');
+            resourceItem.innerHTML = `
+                <h3>${resource.title}</h3>
+                <p>${resource.description}</p>
+                <a href="${resource.url}" target="_blank">View Resource</a>
+            `;
+            resourceList.appendChild(resourceItem);
+        });
+    }
+
+    // Handle user form submission
+    userForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = userNameInput.value.trim();
+        const role = userRoleInput.value.trim();
+
+        if (name && role) {
+            // Add new user to the list (could be posted to the backend here)
+            users.push({ name, role, email: `${name.toLowerCase().replace(' ', '')}@example.com` }); // Replace with real email logic
+            renderUsers(); // Re-render the list with the new user
+            userNameInput.value = '';
+            userRoleInput.value = '';
+        } else {
+            alert('Please fill out all fields!');
+        }
+    });
+
+    // Handle resource form submission
+    resourceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const title = resourceTitleInput.value.trim();
+        const description = resourceDescriptionInput.value.trim();
+
+        if (title && description) {
+            // Add new resource to the list (could be posted to the backend here)
+            resources.push({ title, description, url: '#' }); // Update with proper URL in real use
+            renderResources(); // Re-render the list with the new resource
+            resourceTitleInput.value = '';
+            resourceDescriptionInput.value = '';
+        } else {
+            alert('Please fill out both fields!');
+        }
+    });
+
+    renderUsers(); // Initial render of users
+    renderResources(); // Initial render of resources
+});
+    </script>
+</body>
+</html>

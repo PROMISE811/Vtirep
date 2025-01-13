@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+   <style>
+       /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #003366;
+    padding: 15px 0;
+    color: #fff;
+    width: 100%;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+header nav ul li a:hover, header nav ul li a.active {
+    color: #ffcc00;
+}
+
+/* Main Dashboard */
+main {
+    flex-grow: 1;
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+section#resources {
+    margin-top: 30px;
+}
+
+h2 {
+    font-size: 22px;
+    color: #003366;
+}
+
+#resource-list {
+    margin-top: 20px;
+}
+
+.resource-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resource-item h3 {
+    margin-bottom: 10px;
+}
+
+.resource-item a {
+    text-decoration: none;
+    color: #003366;
+    font-weight: bold;
+}
+
+.resource-item a:hover {
+    color: #ffcc00;
+}
+
+footer {
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+   </style>
+   <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <style>
+        /* Existing CSS styles */
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="staff_dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="upload_resource.html">Upload Resource</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Welcome to the Staff Dashboard</h1>
+        <section id="resources">
+            <h2>Uploaded Resources</h2>
+            <div id="resource-list">
+                <!-- Dynamically populated list of resources -->
+                {% for resource in resources %}
+                    <div class="resource-item">
+                        <h3>{{ resource.title }}</h3>
+                        <p>{{ resource.description }}</p>
+                        <a href="{{ resource.url }}" target="_blank">View Resource</a>
+                        <a href="{% url 'edit_resource' resource.id %}">Edit</a> |
+                        <a href="{% url 'delete_resource' resource.id %}" onclick="return confirm('Are you sure you want to delete this resource?')">Delete</a>
+                    </div>
+                {% empty %}
+                    <p>No resources uploaded yet.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 VTIREP School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const resourceList = document.getElementById('resource-list');
+
+            // Simulating dynamic content population from the backend (Django)
+            {% for resource in resources %}
+                const resourceItem = document.createElement('div');
+                resourceItem.classList.add('resource-item');
+                resourceItem.innerHTML = `
+                    <h3>{{ resource.title }}</h3>
+                    <p>{{ resource.description }}</p>
+                    <a href="{{ resource.url }}" target="_blank">View Resource</a>
+                    <a href="{% url 'edit_resource' resource.id %}">Edit</a> |
+                    <a href="{% url 'delete_resource' resource.id %}" onclick="return confirm('Are you sure you want to delete this resource?')">Delete</a>
+                `;
+                resourceList.appendChild(resourceItem);
+            {% endfor %}
+        });
+    </script>
+</body>
+
+</html>

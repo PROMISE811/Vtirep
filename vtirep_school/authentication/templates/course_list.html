@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - VTIREP School</title>
+    <style>
+        /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+}
+
+header {
+    background-color: #003366;
+    padding: 10px 0;
+    color: #fff;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+header nav ul li a.active {
+    color: #ffcc00;
+}
+
+header nav ul li a:hover {
+    color: #ffcc00;
+}
+
+/* Courses Container */
+.courses-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 28px;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#course-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.course-item {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.course-item:hover {
+    transform: translateY(-5px);
+}
+
+.course-item a {
+    color: #003366;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.course-item a:hover {
+    color: #ffcc00;
+}
+
+/* Footer */
+footer {
+    background-color: #003366;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 50px;
+}
+
+    </style>
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+    // Example: Handle dynamic search for courses (if you plan to add search feature)
+    const searchInput = document.getElementById('course-search');
+    const courseList = document.getElementById('course-list');
+
+    searchInput.addEventListener('input', function () {
+        const filter = searchInput.value.toLowerCase();
+        const courseItems = courseList.getElementsByClassName('course-item');
+
+        Array.from(courseItems).forEach(item => {
+            const courseName = item.textContent.toLowerCase();
+            if (courseName.includes(filter)) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+});
+
+    </script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'course_list' %}" class="active">Courses</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <div class="courses-container">
+        <h2>Available Courses</h2>
+        <ul>
+            {% for course in courses %}
+                <li><a href="{% url 'course_detail' course.id %}">{{ course.name }}</a></li>
+            {% empty %}
+                <li>No courses available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; All Right Reserve 2025 VTIREP </p>
+    </footer>
+</body>
+
+</html>
