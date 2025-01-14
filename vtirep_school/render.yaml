@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: vtirep-web
-    buildCommand: poetry install --no-root
-    startCommand: poetry run python manage.py runserver
-    autoDeploy: true
